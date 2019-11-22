@@ -3,6 +3,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
+const errorHandler = require('./middleware/error');
 const colors = require('colors');
 const connectDB = require('./config/db');
 
@@ -40,6 +41,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Mount Routers
 app.use('/api/v1/users', users);
 app.use('/api/v1/auth', auth);
+
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
