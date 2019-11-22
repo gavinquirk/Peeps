@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
 const colors = require('colors');
 const connectDB = require('./config/db');
 
@@ -15,9 +16,13 @@ const app = express();
 
 // Route Files
 const users = require('./routes/users');
+const auth = require('./routes/auth');
 
 // Body Parser
 app.use(express.json());
+
+// Cookie Parser
+app.use(cookieParser());
 
 // HTTP Logging for Development
 if (process.env.NODE_ENV === 'development') {
@@ -34,6 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Mount Routers
 app.use('/api/v1/users', users);
+app.use('/api/v1/auth', auth);
 
 const PORT = process.env.PORT || 5000;
 
