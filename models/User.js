@@ -34,18 +34,12 @@ const UserSchema = new Schema({
   createdAt: {
     type: Date,
     default: Date.now
-  },
-  location: {
-    type: {
-      type: String,
-      enum: ['Point']
-    },
-    coordinates: {
-      type: [Number],
-      index: '2dsphere'
-    }
   }
 });
+
+// TODO: Cascade delete profiles when user is deleted
+
+// TODO: Reverse populate with profile virtual
 
 // Encrypt password using bcrypt
 UserSchema.pre('save', async function(next) {
