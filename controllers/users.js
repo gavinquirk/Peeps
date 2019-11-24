@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const ErrorResponse = require('../utils/errorResponse');
 
 const asyncHandler = require('../middleware/async');
 
@@ -20,21 +21,23 @@ exports.addUser = async (req, res, next) => {
   res.status(201).json({ success: true, data: user });
 };
 
-// @desc      Get all users in radius
-// @route     GET /api/v1/users/:lat/:lng
-// @access    Private
-exports.getUsersInRadius = asyncHandler(async (req, res, next) => {
-  // Retrieve lat and lng from url params
-  const { lat, lng } = req.params;
+// @desc      Delete User
+// @route     DELETE /api/v1/auth/users/:id
+// @access    Private/Admin
+exports.deleteUser = asyncHandler(async (req, res, next) => {
+  user = await User.findById(req.params.id);
 
-  // Calculate radius by dividing distance (mi) by radius of Earth
-  const distance = 0.25;
-  const radius = distance / 3963;
+  if (!user) {
+    return next(
+      new ErrorResponse(`No user with the id of ${req.params.id}`),
+      404
+    );
+  }
 
-  // Find users within radius
-  const users = await User.find({
-    location: { $geoWithin: { $centerSphere: [[lat, lng], radius] } }
+  user.remove();
+
+  res.status(200).json({
+    success: true,
+    data: {}
   });
-
-  res.status(200).json({ success: true, count: users.length, data: users });
 });

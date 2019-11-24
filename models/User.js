@@ -37,7 +37,12 @@ const UserSchema = new Schema({
   }
 });
 
-// TODO: Cascade delete profiles when user is deleted
+// Cascade delete profile when a user is deleted
+UserSchema.pre('remove', async function(next) {
+  console.log(`Profile being removed from User ${this._id}`);
+  await this.model('Profile').deleteOne({ user: this._id });
+  next();
+});
 
 // TODO: Reverse populate with profile virtual
 

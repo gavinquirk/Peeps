@@ -1,6 +1,8 @@
 const Profile = require('../models/Profile');
 const User = require('../models/User');
 
+const ErrorResponse = require('../utils/errorResponse');
+
 const asyncHandler = require('../middleware/async');
 
 // @desc      Get All Profiles
