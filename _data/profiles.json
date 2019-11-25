@@ -1,0 +1,57 @@
+[
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [117.31063, 33.101444]
+    },
+    "_id": "5ddb103ecaf9f010dc80462d",
+    "facebook": "http://www.facebook.com/mary",
+    "user": "5c8a1d5b0190b214360dc031",
+    "name": "Mary Williams",
+    "email": "mary@email.com"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [117.31063, 33.101442]
+    },
+    "_id": "5ddb0f274080c71974eb7522",
+    "facebook": "http://www.facebook.com/greg",
+    "user": "5c8a1d5b0190b214360dc033",
+    "name": "Greg Harris",
+    "email": "greg@email.com"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-117.310719, 33.100882]
+    },
+    "_id": "5ddb19e23be6b0095c4949f5",
+    "facebook": "http://www.facebook.com/jerry",
+    "user": "5c8a1d5b0190b214360dc036",
+    "name": "Jerry Wiliams",
+    "email": "jerry@email.com"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-117.310719, 33.100882]
+    },
+    "_id": "5ddb11add32bf02058a9ef4a",
+    "facebook": "http://www.facebook.com/maggie",
+    "user": "5c8a1d5b0190b214360dc037",
+    "name": "Maggie Johnson",
+    "email": "maggie@email.com"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-117.310719, 33.100882]
+    },
+    "_id": "5ddb1df4ff13c70590370c10",
+    "facebook": "http://www.facebook.com",
+    "user": "5d7a514b5d2c12c7449be045",
+    "name": "John Doe",
+    "email": "john@email.com"
+  }
+]

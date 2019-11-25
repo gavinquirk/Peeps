@@ -45,7 +45,6 @@ const UserSchema = new Schema(
 
 // Cascade delete profile when a user is deleted
 UserSchema.pre('remove', async function(next) {
-  console.log(`Profile being removed from User ${this._id}`);
   await this.model('Profile').deleteOne({ user: this._id });
   next();
 });
@@ -56,6 +55,15 @@ UserSchema.virtual('profiles', {
   localField: '_id',
   foreignField: 'user',
   justOne: true
+});
+
+// Create profile after creating user
+UserSchema.post('save', async function(next) {
+  await this.model('Profile').create({
+    name: this.name,
+    email: this.email,
+    user: this._id
+  });
 });
 
 // Encrypt password using bcrypt
