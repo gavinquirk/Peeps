@@ -4,38 +4,44 @@ const jwt = require('jsonwebtoken');
 
 const Schema = mongoose.Schema;
 
-const UserSchema = new Schema({
-  name: {
-    type: String,
-    required: [true, 'Please add a name']
+const UserSchema = new Schema(
+  {
+    name: {
+      type: String,
+      required: [true, 'Please add a name']
+    },
+    email: {
+      type: String,
+      required: [true, 'Please add an email'],
+      unique: true,
+      match: [
+        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+        'Please add a valid email'
+      ]
+    },
+    password: {
+      type: String,
+      required: [true, 'Please add a password'],
+      minlength: 6,
+      select: false
+    },
+    role: {
+      type: String,
+      enum: ['user', 'subscriber'],
+      default: 'user'
+    },
+    resetPasswordToken: String,
+    resetPasswordExpire: Date,
+    createdAt: {
+      type: Date,
+      default: Date.now
+    }
   },
-  email: {
-    type: String,
-    required: [true, 'Please add an email'],
-    unique: true,
-    match: [
-      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-      'Please add a valid email'
-    ]
-  },
-  password: {
-    type: String,
-    required: [true, 'Please add a password'],
-    minlength: 6,
-    select: false
-  },
-  role: {
-    type: String,
-    enum: ['user', 'subscriber'],
-    default: 'user'
-  },
-  resetPasswordToken: String,
-  resetPasswordExpire: Date,
-  createdAt: {
-    type: Date,
-    default: Date.now
+  {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
   }
-});
+);
 
 // Cascade delete profile when a user is deleted
 UserSchema.pre('remove', async function(next) {
@@ -44,7 +50,13 @@ UserSchema.pre('remove', async function(next) {
   next();
 });
 
-// TODO: Reverse populate with profile virtual
+// Reverse populate with virtuals
+UserSchema.virtual('profiles', {
+  ref: 'Profile',
+  localField: '_id',
+  foreignField: 'user',
+  justOne: true
+});
 
 // Encrypt password using bcrypt
 UserSchema.pre('save', async function(next) {

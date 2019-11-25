@@ -46,6 +46,4 @@ const ProfileSchema = new Schema({
   }
 });
 
-// TODO: Populate profile with user info
-
 module.exports = mongoose.model('Profile', ProfileSchema);

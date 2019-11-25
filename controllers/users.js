@@ -7,7 +7,7 @@ const asyncHandler = require('../middleware/async');
 // @route     GET /api/v1/users
 // @access    Private/Admin
 exports.getUsers = async (req, res, next) => {
-  const users = await User.find();
+  const users = await User.find().populate('profiles');
 
   res.status(200).json({ success: true, data: users });
 };
