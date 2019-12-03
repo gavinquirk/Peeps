@@ -31,7 +31,22 @@ const users = JSON.parse(
 // Import into DB
 const importData = async () => {
   try {
+    // Create users (profiles created automatically)
     await User.create(users);
+    // Populate profiles with location data
+    await Profile.find({}, (error, profiles) => {
+      if (error) throw error;
+
+      profiles.map(async profile => {
+        profile.location = {
+          type: 'Point',
+          coordinates: [-117.31063, 33.101442]
+        };
+
+        await Profile.findByIdAndUpdate(profile.id, profile);
+      });
+    });
+
     console.log('Data Imported...'.green.inverse);
     process.exit();
   } catch (error) {
