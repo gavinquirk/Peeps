@@ -1,7 +1,7 @@
 // *** Mongoose DB Seeder ***
 // from root folder, run:
-// "node seeder -import" to import bootcamps to db
-// "node seeder -delete" to delete bootcamps from db
+// "node seeder -import" to import to db
+// "node seeder -delete" to delete from db
 
 const fs = require('fs');
 const mongoose = require('mongoose');

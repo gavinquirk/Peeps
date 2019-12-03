@@ -44,6 +44,38 @@ exports.addProfile = async (req, res, next) => {
   res.status(201).json({ success: true, data: profile });
 };
 
+// @desc      Update location coordinates
+// @route     PUT /api/v1/profiles/:lat/:lng
+// @access    Private
+exports.updateLocation = asyncHandler(async (req, res, next) => {
+  // Retrieve user id
+  const user = req.user.id;
+
+  // Retrieve lat and lng from url params
+  const { lat, lng } = req.params;
+
+  // Retrieve user profile
+  const userProfile = await Profile.findOne({ user });
+
+  // Create location data object
+  userProfile.location = {
+    type: 'Point',
+    coordinates: [lat, lng]
+  };
+
+  // Update the profile with new data
+  const updatedProfile = await Profile.findByIdAndUpdate(
+    userProfile.id,
+    userProfile,
+    {
+      new: true,
+      runValidators: true
+    }
+  );
+
+  res.status(200).json({ success: true, data: updatedProfile });
+});
+
 // @desc      Get all profiles in radius
 // @route     GET /api/v1/profiles/:lat/:lng
 // @access    Private
