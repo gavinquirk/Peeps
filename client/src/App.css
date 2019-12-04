@@ -1,3 +1,7 @@
 body {
   background-color: rgb(142, 167, 248);
 }
+
+.container {
+  background-color: #fff;
+}
