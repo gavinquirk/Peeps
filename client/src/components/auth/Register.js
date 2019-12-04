@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { setAlert } from '../../actions/alert';
+import PropTypes from 'prop-types';
 
-export default class Register extends Component {
+class Register extends Component {
   state = {
     name: '',
     email: '',
@@ -19,7 +22,7 @@ export default class Register extends Component {
     e.preventDefault();
     // Check if passwords match
     if (this.state.password !== this.state.password2) {
-      alert('Your passwords do not match');
+      this.props.setAlert('Passwords do not match', 'danger');
     } else {
       console.log(this.state);
     }
@@ -92,3 +95,9 @@ export default class Register extends Component {
     );
   }
 }
+
+Register.propTypes = {
+  setAlert: PropTypes.func.isRequired
+};
+
+export default connect(null, { setAlert })(Register);
