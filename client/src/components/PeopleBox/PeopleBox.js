@@ -5,23 +5,35 @@ import Axios from 'axios';
 // const cookies = new Cookies();
 
 export default class PeopleBox extends Component {
-  componentDidMount() {
-    // Log In User
-    Axios.post('http://localhost:5000/api/v1/auth/login', {
-      email: 'mary@email.com',
-      password: '123456'
-    }).then(res => {
-      const token = 'Bearer ' + res.data.token;
-      this.getCurrentUser(token);
-    });
+  state = {
+    profiles: null,
+    token: null,
+    user: null
+  };
 
-    // Get All Profiles
-    Axios.get('http://localhost:5000/api/v1/profiles').then(res => {
-      console.log(res);
-    });
+  componentDidMount() {
+    // Hardcoded email and password
+    const email = 'mary@email.com';
+    const password = '123456';
+
+    // Log in user with email and password
+    this.logIn(email, password);
+
+    // Get all profiles from API
+    this.getAllProfiles();
   }
 
-  getCurrentUser(token) {
+  logIn = (email, password) => {
+    Axios.post('http://localhost:5000/api/v1/auth/login', {
+      email,
+      password
+    }).then(res => {
+      const token = 'Bearer ' + res.data.token;
+      this.setState({ token });
+    });
+  };
+
+  getCurrentUser = token => {
     console.log(token);
 
     const headers = {
@@ -29,14 +41,23 @@ export default class PeopleBox extends Component {
       test: 'test'
     };
 
-    Axios.get('http://localhost:5000/api/v1/auth/me', { headers }).then(res => {
-      console.log(res);
+    Axios.get('http://localhost:5000/api/v1/auth/me', { headers }).then(
+      user => {
+        this.setState(user);
+      }
+    );
+  };
+
+  getAllProfiles = () => {
+    Axios.get('http://localhost:5000/api/v1/profiles').then(res => {
+      this.setState({ profiles: res.data.data });
     });
-  }
+  };
 
   render() {
+    console.log(this.state);
     return (
-      <div>
+      <div className='PeopleBox'>
         <h1>TEST</h1>
       </div>
     );
