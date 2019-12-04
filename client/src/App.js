@@ -1,5 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from './store';
 
 import NavBar from './components/NavBar/NavBar';
 import Landing from './components/Landing/Landing';
@@ -10,18 +12,20 @@ import './App.css';
 
 function App() {
   return (
-    <Router>
-      <div className='App'>
-        <NavBar />
-        <div className='container'>
-          <Route exact path='/' component={Landing} />
-          <Switch>
-            <Route exact path='/login' component={Login} />
-            <Route exact path='/register' component={Register} />
-          </Switch>
+    <Provider store={store}>
+      <Router>
+        <div className='App'>
+          <NavBar />
+          <div className='container'>
+            <Route exact path='/' component={Landing} />
+            <Switch>
+              <Route exact path='/login' component={Login} />
+              <Route exact path='/register' component={Register} />
+            </Switch>
+          </div>
         </div>
-      </div>
-    </Router>
+      </Router>
+    </Provider>
   );
 }
 
