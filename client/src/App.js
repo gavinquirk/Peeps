@@ -2,14 +2,14 @@ import React from 'react';
 import './App.css';
 
 import NavBar from './components/NavBar/NavBar';
-import PeopleBox from './components/PeopleBox/PeopleBox';
+import Landing from './components/Landing/Landing';
 
 function App() {
   return (
     <div className='App'>
       <div className='container'>
         <NavBar />
-        <PeopleBox />
+        <Landing />
       </div>
     </div>
   );
