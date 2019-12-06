@@ -1,3 +1,20 @@
+/* html {
+  height: 100vh;
+  width: 100vw;
+}
+
 body {
   background-color: rgb(142, 167, 248);
+  height: 100vh;
+  width: 100vw;
+}
+
+.App {
+  height: 100vh;
+  width: 100vw;
+} */
+
+.container {
+  height: 90vh;
+  width: 100vw;
 }
