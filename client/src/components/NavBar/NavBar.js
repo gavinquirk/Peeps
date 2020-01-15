@@ -27,6 +27,22 @@ export default class NavBar extends Component {
                 Home
               </Link>
             </li>
+            <li className='nav-item '>
+              <Link
+                className='px-3 py-1 text-decoration-none text-dark'
+                to='/dashboard'
+              >
+                Dashboard
+              </Link>
+            </li>
+            <li className='nav-item '>
+              <Link
+                className='px-3 py-1 text-decoration-none text-dark'
+                to='/find'
+              >
+                Find
+              </Link>
+            </li>
             <li className='nav-item'>
               <Link
                 className='px-3 py-1 text-decoration-none text-dark'

@@ -7,6 +7,8 @@ import NavBar from './components/NavBar/NavBar';
 import Landing from './components/Landing/Landing';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
+import Dashboard from './components/Dashboard/Dashboard';
+import Find from './components/Find/Find';
 import Alert from './components/layout/Alert';
 
 import './App.css';
@@ -23,6 +25,8 @@ function App() {
             <Switch>
               <Route exact path='/login' component={Login} />
               <Route exact path='/register' component={Register} />
+              <Route exact path='/dashboard' component={Dashboard} />
+              <Route exact path='/find' component={Find} />
             </Switch>
           </div>
         </div>
