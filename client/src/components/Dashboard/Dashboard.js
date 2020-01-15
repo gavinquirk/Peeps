@@ -6,7 +6,7 @@ class Dashboard extends Component {
     return (
       <div>
         <h1>Dashboard</h1>
-        <Link to='/find' class='btn btn-primary'>
+        <Link to='/find' className='btn btn-primary'>
           Find
         </Link>
       </div>
