@@ -32,7 +32,14 @@ class Find extends Component {
     const profilesList = this.state.userProfiles.map(profile => (
       <ul className='profiles-list list-group' key={profile._id}>
         <li className='profile-item list-group-item'>
-          <h6>{profile.name}</h6>
+          <div className='row p-4'>
+            <div className='col-sm-6 text-center'>
+              <i className='far fa-user fa-10x'></i>
+            </div>
+            <div className='col-sm-6 text-center mt-4'>
+              <h4>{profile.name}</h4>
+            </div>
+          </div>
         </li>
       </ul>
     ));
@@ -40,6 +47,12 @@ class Find extends Component {
     return (
       <div className='Find'>
         <h1>Find</h1>
+        <input
+          className='form-control mb-4'
+          type='text'
+          placeholder='Search'
+          aria-label='Search'
+        />
         {this.state.loading ? (
           <LoadingSpinner />
         ) : (
