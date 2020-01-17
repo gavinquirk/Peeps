@@ -3,6 +3,15 @@ import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
 import { register } from '../../actions/auth';
 import PropTypes from 'prop-types';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+  Input,
+  Button,
+  Form,
+  FormGroup
+} from 'reactstrap';
 
 import './Register.css';
 
@@ -23,82 +32,94 @@ class Register extends Component {
 
   onSubmit = e => {
     e.preventDefault();
+    // Retrieve submitted data from state
+    const { name, email, password, password2 } = this.state;
     // Check if passwords match
-    if (this.state.password !== this.state.password2) {
+    if (password !== password2) {
       this.props.setAlert('Passwords do not match', 'danger');
     } else {
       this.props.register({
-        name: this.state.name,
-        email: this.state.email,
-        password: this.state.password
+        name,
+        email,
+        password
       });
     }
   };
 
   render() {
-    const { name, email, password, password2 } = this.state;
-
     return (
       <div className='Register'>
         <div className='register-container rounded p-4'>
           <h1>Register</h1>
-          <form className='form' onSubmit={e => this.onSubmit(e)}>
-            <div className='form-group'>
-              <label htmlFor='name'>Name</label>
-              <input
-                name='name'
-                type='text'
-                className='form-control'
-                id='name'
-                placeholder='Enter your name'
-                value={name}
-                onChange={e => this.onChange(e)}
-                required
-              />
-            </div>
-            <div className='form-group'>
-              <label htmlFor='email'>Email Address</label>
-              <input
-                name='email'
-                type='email'
-                className='form-control'
-                id='email'
-                placeholder='Enter your email'
-                value={email}
-                onChange={e => this.onChange(e)}
-                required
-              />
-            </div>
-            <div className='form-group'>
-              <label htmlFor='password'>Password</label>
-              <input
-                name='password'
-                type='password'
-                className='form-control'
-                id='password'
-                placeholder='Enter your password'
-                minLength='5'
-                value={password}
-                onChange={e => this.onChange(e)}
-                required
-              />
-            </div>
-            <div className='form-group'>
-              <label htmlFor='password-2'>Confirm Password</label>
-              <input
-                name='password2'
-                type='password'
-                className='form-control'
-                id='password2'
-                placeholder='Confirm your password'
-                minLength='5'
-                value={password2}
-                onChange={e => this.onChange(e)}
-                required
-              />
-            </div>
-            <input type='submit' className='btn btn-primary' value='Register' />
-          </form>
+          <Form>
+            <FormGroup>
+              <InputGroup>
+                <InputGroupAddon addonType='prepend'>
+                  <InputGroupText>
+                    <i className='fas fa-signature'></i>
+                  </InputGroupText>
+                </InputGroupAddon>
+                <Input
+                  type='name'
+                  name='name'
+                  id='nameInput'
+                  placeholder='name'
+                  onChange={e => this.onChange(e)}
+                />
+              </InputGroup>
+            </FormGroup>
+            <FormGroup>
+              <InputGroup>
+                <InputGroupAddon addonType='prepend'>
+                  <InputGroupText>
+                    <i className='fas fa-envelope'></i>
+                  </InputGroupText>
+                </InputGroupAddon>
+                <Input
+                  type='email'
+                  name='email'
+                  id='emailInput'
+                  placeholder='email'
+                  onChange={e => this.onChange(e)}
+                />
+              </InputGroup>
+            </FormGroup>
+            <FormGroup>
+              <InputGroup>
+                <InputGroupAddon addonType='prepend'>
+                  <InputGroupText>
+                    <i className='fas fa-key'></i>
+                  </InputGroupText>
+                </InputGroupAddon>
+                <Input
+                  type='password'
+                  name='password'
+                  id='passwordInput'
+                  placeholder='password'
+                  onChange={e => this.onChange(e)}
+                />
+              </InputGroup>
+            </FormGroup>
+            <FormGroup>
+              <InputGroup>
+                <InputGroupAddon addonType='prepend'>
+                  <InputGroupText>
+                    <i className='fas fa-key'></i>
+                  </InputGroupText>
+                </InputGroupAddon>
+                <Input
+                  type='password'
+                  name='password2'
+                  id='password2Input'
+                  placeholder='confirm password'
+                  onChange={e => this.onChange(e)}
+                />
+              </InputGroup>
+            </FormGroup>
+            <Button color='primary' onClick={this.onSubmit}>
+              Submit
+            </Button>
+          </Form>
         </div>
       </div>
     );
