@@ -1,4 +1,15 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+  Input,
+  Button,
+  Form,
+  FormGroup
+} from 'reactstrap';
 
 import './Login.css';
 
@@ -17,47 +28,63 @@ export default class Login extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    console.log('Your credentials have been submitted...');
-    console.log(this.state);
+    // Retrieve submitted form data from state
+    const email = this.state.email;
+    const password = this.state.password;
+
+    // Attempt Login
+    axios
+      .post(`/api/v1/auth/login`, {
+        email,
+        password
+      })
+      .then(res => {
+        console.log(res);
+      });
   };
 
   render() {
-    const { email, password } = this.state;
-
     return (
       <div className='Login'>
         <div className='login-container'>
           <h1>Login</h1>
-          <form className='form' onSubmit={e => this.onSubmit(e)}>
-            <div className='form-group'>
-              <label htmlFor='email'>Email Address</label>
-              <input
-                name='email'
-                type='email'
-                className='form-control'
-                id='email'
-                placeholder='Enter your email'
-                value={email}
-                onChange={e => this.onChange(e)}
-                required
-              />
-            </div>
-            <div className='form-group'>
-              <label htmlFor='password'>Password</label>
-              <input
-                name='password'
-                type='password'
-                className='form-control'
-                id='password'
-                placeholder='Enter your password'
-                minLength='5'
-                value={password}
-                onChange={e => this.onChange(e)}
-                required
-              />
-            </div>
-            <input type='submit' className='btn btn-primary' value='Login' />
-          </form>
+          <Form>
+            <FormGroup>
+              <InputGroup>
+                <InputGroupAddon addonType='prepend'>
+                  <InputGroupText>
+                    <i className='fas fa-envelope'></i>
+                  </InputGroupText>
+                </InputGroupAddon>
+                <Input
+                  type='email'
+                  name='email'
+                  id='emailInput'
+                  placeholder='email'
+                  onChange={e => this.onChange(e)}
+                />
+              </InputGroup>
+            </FormGroup>
+            <FormGroup>
+              <InputGroup>
+                <InputGroupAddon addonType='prepend'>
+                  <InputGroupText>
+                    <i className='fas fa-key'></i>
+                  </InputGroupText>
+                </InputGroupAddon>
+                <Input
+                  type='password'
+                  name='password'
+                  id='passwordInput'
+                  placeholder='password'
+                  onChange={e => this.onChange(e)}
+                />
+              </InputGroup>
+            </FormGroup>
+            <Button color='primary' onClick={this.onSubmit}>
+              Submit
+            </Button>
+          </Form>
         </div>
       </div>
     );
