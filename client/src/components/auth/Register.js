@@ -40,7 +40,7 @@ class Register extends Component {
 
     return (
       <div className='Register'>
-        <div className='register-container'>
+        <div className='register-container rounded p-4'>
           <h1>Register</h1>
           <form className='form' onSubmit={e => this.onSubmit(e)}>
             <div className='form-group'>

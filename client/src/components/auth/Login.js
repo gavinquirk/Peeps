@@ -46,7 +46,7 @@ export default class Login extends Component {
   render() {
     return (
       <div className='Login'>
-        <div className='login-container'>
+        <div className='login-container rounded p-4'>
           <h1>Login</h1>
           <Form>
             <FormGroup>
